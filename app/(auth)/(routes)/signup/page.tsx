@@ -1,7 +1,5 @@
-import React from 'react'
+import { NextPage } from "next";
 
-const SignUpPage = () => {
-  return (
-    <div>SignUpPage</div>
-  )
-}
+const SignUpPage: NextPage = () => {
+  return <div>SignUpPage</div>;
+};
