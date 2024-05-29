@@ -1,5 +1,7 @@
-import { NextPage } from "next";
-
-const LoginPage: NextPage = () => {
-  return <div>LoginPage</div>;
-};
+export default function LoginPage() {
+  return (
+    <div>
+      <div>Ideascribe</div>
+    </div>
+  );
+}
