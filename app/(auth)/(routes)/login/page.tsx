@@ -1,7 +1,9 @@
-export default function LoginPage() {
+import React from 'react'
+
+const LoginPage = () => {
   return (
-    <div>
-      <div>Ideascribe</div>
-    </div>
-  );
+    <div>LoginPage</div>
+  )
 }
+
+export default LoginPage

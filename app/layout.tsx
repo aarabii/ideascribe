@@ -5,7 +5,10 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Ideascribe",
+  title: {
+    template: "%s | Ideascribe",
+    default: "Ideascribe",
+  },
   description: "A notion clone for writers",
   icons: [
     {

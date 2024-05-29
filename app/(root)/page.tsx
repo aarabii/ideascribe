@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <div>
-      <div>Ideascribe</div>
+      <h1>Ideascribe</h1>
     </div>
   );
 }
