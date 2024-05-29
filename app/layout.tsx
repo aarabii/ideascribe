@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -9,12 +10,18 @@ export const metadata: Metadata = {
     template: "%s | Ideascribe",
     default: "Ideascribe",
   },
-  description: "A notion clone for writers",
+  description:
+    "Ideascribe is a powerful, all-in-one workspace app designed to help you organize and bring your ideas to life. With flexible note-taking, task management, and real-time collaboration features, Ideascribe is perfect for individuals and teams looking to boost productivity and creativity. Try Ideascribe today and transform the way you work!",
   icons: [
     {
-      rel: "icon",
-      type: "image/svg+xml",
-      url: "/icon.svg",
+      media: "(prefers-color-scheme: light)",
+      url: "/logo_invert.svg",
+      href: "/logo_invert.svg",
+    },
+    {
+      media: "(prefers-color-scheme: dark)",
+      url: "/logo.svg",
+      href: "/logo.svg",
     },
   ],
 };
@@ -26,7 +33,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+          storageKey="ID-Theme"
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
