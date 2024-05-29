@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Login | Ideascribe",
+  title: "Login",
   description: "Login to Ideascribe",
 };
 
