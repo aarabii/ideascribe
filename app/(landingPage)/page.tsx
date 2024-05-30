@@ -1,15 +1,13 @@
 import { Footer } from "./_components/Footer";
 import { Heading } from "./_components/Heading";
-import { Hero } from "./_components/Hero";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-full flex flex-col">
-      <div className="flex flex-col items-center justify-center md:justify-start text-center gap-y-8 flex-1 px-6 py-10">
+    <div className="min-h-screen flex flex-col dark:bg-[#080402]">
+      <div className="flex-1 flex flex-col items-center justify-center px-6 py-10 md:py-20">
         <Heading />
-        <Hero />
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 }

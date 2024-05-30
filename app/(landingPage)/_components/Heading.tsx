@@ -5,10 +5,10 @@ import { ArrowRight } from "lucide-react";
 
 export const Heading = () => {
   return (
-    <div className="max-w-3xl space-y-4 dark:bg-[#080402]">
+    <div className="max-w-3xl space-y-4 text-center">
       <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold">
         Note, Plan, Manage, Innovate. With{" "}
-        <span className="text-blue-500 underline">Ideascribe</span>
+        <span className="text-blue-500 underline hover:decoration-wavy">Ideascribe</span>
       </h1>
       <h3 className="text-base sm:text-xl md:text-2xl font-medium">
         Your connected workspace for seamless productivity and creativity.
