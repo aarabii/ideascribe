@@ -76,7 +76,7 @@ export const UserItem = () => {
           </div>
         </div>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem asChild className="w-full cursor-pointer">
           <SignOutButton>
             <Button variant="destructive" className="w-full">
               Sign Out
