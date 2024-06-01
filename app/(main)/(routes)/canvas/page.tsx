@@ -9,6 +9,12 @@ import { Button } from "@/components/ui/button";
 
 import { PlusCircle } from "lucide-react";
 
+import {
+  toastMsgLoading,
+  toastMsgSuccess,
+  toastMsgError,
+} from "@/assets/toastMsg";
+
 export default function Canvas() {
   const user = useUser();
   const create = useMutation(api.canvas.create);
@@ -19,9 +25,11 @@ export default function Canvas() {
     });
 
     toast.promise(promise, {
-      loading: "Creating Canvas...",
-      success: "Canvas Created!",
-      error: "Failed to Create Canvas",
+      loading:
+        toastMsgLoading[Math.floor(Math.random() * toastMsgLoading.length)],
+      success:
+        toastMsgSuccess[Math.floor(Math.random() * toastMsgSuccess.length)],
+      error: toastMsgError[Math.floor(Math.random() * toastMsgError.length)],
     });
   };
 

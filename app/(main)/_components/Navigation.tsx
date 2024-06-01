@@ -5,12 +5,24 @@ import { useMediaQuery } from "usehooks-ts";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-import { ChevronLeftIcon, MenuIcon } from "lucide-react";
+import { ChevronLeftIcon, MenuIcon, PlusCircle, Search, Settings } from "lucide-react";
 import { UserItem } from "./UserItem";
+import { Item } from "./Item";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { toast } from "sonner";
+
+import {
+  toastMsgLoading,
+  toastMsgSuccess,
+  toastMsgError,
+} from "@/assets/toastMsg";
 
 export const Navigation = () => {
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
+
+  const create = useMutation(api.canvas.create);
 
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<"aside">>(null);
@@ -98,6 +110,20 @@ export const Navigation = () => {
     }
   };
 
+  const handleCreate = () => {
+    const promise = create({
+      title: "Untitled Canvas",
+    });
+
+    toast.promise(promise, {
+      loading:
+        toastMsgLoading[Math.floor(Math.random() * toastMsgLoading.length)],
+      success:
+        toastMsgSuccess[Math.floor(Math.random() * toastMsgSuccess.length)],
+      error: toastMsgError[Math.floor(Math.random() * toastMsgError.length)],
+    });
+  };
+
   return (
     <Fragment>
       <aside
@@ -120,6 +146,9 @@ export const Navigation = () => {
         </div>
         <div>
           <UserItem />
+          <Item label="Search" icon={Search} isSearch onClick={() => {}} />
+          <Item label="Setting" icon={Settings} onClick={() => {}} />
+          <Item onClick={handleCreate} label="New canvas" icon={PlusCircle} />
         </div>
         <div className="mt-4">Canvas List</div>
 
