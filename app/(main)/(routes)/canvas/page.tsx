@@ -1,11 +1,29 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/nextjs";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { toast } from "sonner";
+
+import { Button } from "@/components/ui/button";
+
 import { PlusCircle } from "lucide-react";
 
 export default function Canvas() {
   const user = useUser();
+  const create = useMutation(api.canvas.create);
+
+  const onCreate = () => {
+    const promise = create({
+      title: "Untitled Canvas",
+    });
+
+    toast.promise(promise, {
+      loading: "Creating Canvas...",
+      success: "Canvas Created!",
+      error: "Failed to Create Canvas",
+    });
+  };
 
   const welcomeMessageArr = [
     `Hello ${user.user?.firstName}, welcome to your Canvas! Unleash your creativity with Ideascribe.`,
@@ -40,7 +58,7 @@ export default function Canvas() {
           ]
         }
       </h2>
-      <Button>
+      <Button onClick={onCreate}>
         <PlusCircle className="w-4 h-4 mr-2" />
         {BtnTextArr[Math.floor(Math.random() * BtnTextArr.length)]}
       </Button>

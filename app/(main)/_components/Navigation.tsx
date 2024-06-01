@@ -121,9 +121,7 @@ export const Navigation = () => {
         <div>
           <UserItem />
         </div>
-        <div className="mt-4">
-          <p>DOcuments</p>
-        </div>
+        <div className="mt-4">Canvas List</div>
 
         <div
           onMouseDown={handleMouseDown}
