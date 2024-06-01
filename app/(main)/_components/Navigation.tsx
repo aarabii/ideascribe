@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 import { ChevronLeftIcon, MenuIcon } from "lucide-react";
+import { UserItem } from "./UserItem";
 
 export const Navigation = () => {
   const pathname = usePathname();
@@ -117,7 +118,7 @@ export const Navigation = () => {
           <ChevronLeftIcon className="w-6 h-6" />
         </div>
         <div>
-          <p>Action Items</p>
+          <UserItem />
         </div>
         <div className="mt-4">
           <p>DOcuments</p>
