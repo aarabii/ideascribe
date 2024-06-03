@@ -5,7 +5,13 @@ import { useMediaQuery } from "usehooks-ts";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-import { ChevronLeftIcon, MenuIcon, PlusCircle, Search, Settings } from "lucide-react";
+import {
+  ChevronLeftIcon,
+  MenuIcon,
+  PlusCircle,
+  Search,
+  Settings,
+} from "lucide-react";
 import { UserItem } from "./UserItem";
 import { Item } from "./Item";
 import { useMutation } from "convex/react";
@@ -17,6 +23,7 @@ import {
   toastMsgSuccess,
   toastMsgError,
 } from "@/assets/toastMsg";
+import { CanvasList } from "./CanvasList";
 
 export const Navigation = () => {
   const pathname = usePathname();
@@ -150,7 +157,9 @@ export const Navigation = () => {
           <Item label="Setting" icon={Settings} onClick={() => {}} />
           <Item onClick={handleCreate} label="New canvas" icon={PlusCircle} />
         </div>
-        <div className="mt-4">Canvas List</div>
+        <div className="mt-4">
+          <CanvasList />
+        </div>
 
         <div
           onMouseDown={handleMouseDown}

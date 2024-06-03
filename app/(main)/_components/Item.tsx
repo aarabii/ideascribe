@@ -2,8 +2,19 @@
 
 import { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
-import { ChevronDown, ChevronRight, LucideIcon } from "lucide-react";
-import { FC } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ChevronDown, ChevronRight, LucideIcon, Plus } from "lucide-react";
+import React, { FC } from "react";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+
+import {
+  toastMsgLoading,
+  toastMsgSuccess,
+  toastMsgError,
+} from "@/assets/toastMsg";
 
 interface ItemProps {
   id?: Id<"canvas">;
@@ -18,7 +29,11 @@ interface ItemProps {
   icon: LucideIcon;
 }
 
-export const Item: FC<ItemProps> = ({
+interface ItemComponent extends FC<ItemProps> {
+  Skeleton: FC<{ level?: number }>;
+}
+
+const Item: ItemComponent = ({
   id,
   canvasIcon,
   active,
@@ -30,6 +45,36 @@ export const Item: FC<ItemProps> = ({
   label,
   icon: Icon,
 }) => {
+  const router = useRouter();
+  const create = useMutation(api.canvas.create);
+
+  const handleExpand = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+    onExpand?.();
+  };
+
+  const onCreate = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+    if (!id) return;
+
+    const promise = create({ title: "New Canvas", parentCanvas: id }).then(
+      (canvasId) => {
+        if (!expanded) {
+          onExpand?.();
+        }
+        router.push(`/canvas/${canvasId}`);
+      }
+    );
+
+    toast.promise(promise, {
+      loading:
+        toastMsgLoading[Math.floor(Math.random() * toastMsgLoading.length)],
+      success:
+        toastMsgSuccess[Math.floor(Math.random() * toastMsgSuccess.length)],
+      error: toastMsgError[Math.floor(Math.random() * toastMsgError.length)],
+    });
+  };
+
   const ChIcon = expanded ? ChevronDown : ChevronRight;
   const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
 
@@ -47,7 +92,7 @@ export const Item: FC<ItemProps> = ({
         <div
           role="button"
           className="h-full rounded-sm hover:bg-neutral-300 dark:bg-neutral-600"
-          onClick={() => {}}
+          onClick={handleExpand}
         >
           <ChIcon className="h-4 w-4 shrink-0 text-muted-foreground/50" />
         </div>
@@ -64,6 +109,34 @@ export const Item: FC<ItemProps> = ({
           <kbd className="text-xs">K</kbd>
         </kbd>
       )}
+
+      {!!id && (
+        <div
+          role="button"
+          onClick={onCreate}
+          className="ml-auto flex items-center gap-x-2"
+        >
+          <div className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600">
+            <Plus className="h-4 w-4 text-muted-foreground" />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
+
+const ItemSkeleton: FC<{ level?: number }> = ({ level }) => {
+  return (
+    <div
+      className="flex gap-x-2 py-[3px]"
+      style={{ paddingLeft: level ? `${level * 12 + 25}px` : "12px" }}
+    >
+      <Skeleton className="w-4 h-4" />
+      <Skeleton className="w-4 h-[30%]" />
+    </div>
+  );
+};
+
+Item.Skeleton = ItemSkeleton;
+
+export { Item };
