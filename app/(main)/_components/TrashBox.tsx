@@ -1,10 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import { api } from "@/convex/_generated/api";
-import { useMutation, useQuery } from "convex/react";
 import { useParams, useRouter } from "next/navigation";
+import { useMutation, useQuery } from "convex/react";
+
+import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
+
+import { Spinner } from "@/components/spinner";
+import { ConfirmModal } from "@/components/modals/ConfirmModal";
+import { Input } from "@/components/ui/input";
+
 import { toast } from "sonner";
 
 import {
@@ -15,10 +21,8 @@ import {
   toastMsgDeleteLoading,
   toastMsgDeleteError,
 } from "@/assets/toastMsg";
-import { Spinner } from "@/components/spinner";
+
 import { Search, Trash2, Undo2 } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { ConfirmModal } from "@/components/modals/ConfirmModal";
 
 export const TrashBox = () => {
   const router = useRouter();
@@ -33,7 +37,11 @@ export const TrashBox = () => {
     return c.title.toLowerCase().includes(search.toLowerCase());
   });
 
-  const onClickCanvasName = (id: string) => {
+  const onClickCanvasName = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    id: string
+  ) => {
+    e.stopPropagation();
     router.push(`/canvas/${id}`);
   };
 
@@ -110,7 +118,7 @@ export const TrashBox = () => {
           <div
             key={c._id}
             role="button"
-            onClick={() => onClickCanvasName(c._id)}
+            onClick={(e) => onClickCanvasName(e, c._id)}
             className="text-sm rounded-sm w-full hover:bg-primary/5 flex items-center text-primary justify-between"
           >
             <strong className="pl-2 truncate">{c.title}</strong>

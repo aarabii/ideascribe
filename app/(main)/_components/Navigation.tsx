@@ -1,8 +1,10 @@
 "use client";
 
 import { Fragment, ElementRef, useEffect, useRef, useState } from "react";
-import { useMediaQuery } from "usehooks-ts";
 import { usePathname } from "next/navigation";
+
+import { useMediaQuery } from "usehooks-ts";
+
 import { cn } from "@/lib/utils";
 
 import {

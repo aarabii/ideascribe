@@ -1,13 +1,17 @@
 "use client";
 
 import { Fragment, useState } from "react";
-import { Doc, Id } from "@/convex/_generated/dataModel";
 import { useParams, useRouter } from "next/navigation";
 import { useQuery } from "convex/react";
+
 import { api } from "@/convex/_generated/api";
-import { Item } from "./Item";
-import { cn } from "@/lib/utils";
+import { Doc, Id } from "@/convex/_generated/dataModel";
+
 import { FileIcon } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
+import { Item } from "./Item";
 
 interface CanvasListProps {
   parentCanvasId?: Id<"canvas">;

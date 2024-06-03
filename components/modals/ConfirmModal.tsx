@@ -31,10 +31,11 @@ export function ConfirmModal({ children, onConfirm }: ConfirmModalProps) {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>⚠️ Alert</AlertDialogTitle>
+          <AlertDialogTitle>⚠️ Deleting a canvas</AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogDescription>
-          This action cannot be undone. Are you sure you want to continue?
+          This action cannot be undone. Are you sure you want to continue
+          deleting this file?
         </AlertDialogDescription>
         <AlertDialogFooter>
           <AlertDialogCancel>No</AlertDialogCancel>
