@@ -4,8 +4,12 @@ import { Fragment, ElementRef, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
 import { useMediaQuery } from "usehooks-ts";
+import { toast } from "sonner";
+
+import { useMutation } from "convex/react";
 
 import { cn } from "@/lib/utils";
+import { api } from "@/convex/_generated/api";
 
 import {
   ChevronLeftIcon,
@@ -16,25 +20,28 @@ import {
   Settings,
   Trash,
 } from "lucide-react";
-import { UserItem } from "./UserItem";
-import { Item } from "./Item";
-import { useMutation } from "convex/react";
-import { api } from "@/convex/_generated/api";
-import { toast } from "sonner";
+
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
 } from "@/components/ui/popover";
+
 import {
   toastMsgLoading,
   toastMsgSuccess,
   toastMsgError,
 } from "@/assets/toastMsg";
+
+import { useSearch } from "@/hook/useSearch";
+
+import { UserItem } from "./UserItem";
+import { Item } from "./Item";
 import { CanvasList } from "./CanvasList";
 import { TrashBox } from "./TrashBox";
 
 export const Navigation = () => {
+  const search = useSearch();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -162,7 +169,7 @@ export const Navigation = () => {
         </div>
         <div>
           <UserItem />
-          <Item label="Search" icon={Search} isSearch onClick={() => {}} />
+          <Item label="Search" icon={Search} isSearch onClick={search.onOpen} />
           <Item label="Setting" icon={Settings} onClick={() => {}} />
           <Item onClick={handleCreate} label="New canvas" icon={PlusCircle} />
         </div>

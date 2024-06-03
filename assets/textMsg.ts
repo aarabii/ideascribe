@@ -21,3 +21,19 @@ export const BtnTextArr = [
   "Make Magic Happen!",
   "Start Your Masterpiece!",
 ];
+
+export const searchMsg = [
+  "Search through your creative space...",
+  "Look for notes, tasks, and more...",
+  "Discover your ideas and plans...",
+  "Explore your Ideascribe universe...",
+  "Uncover notes, tasks, and inspirations...",
+  "Navigate your creative projects...",
+  "Find your thoughts and plans...",
+  "Search your work and ideas...",
+  "Look through your projects and notes...",
+  "Hunt for tasks, notes, and more...",
+  "Discover your hidden gems...",
+  "Search your organized chaos...",
+  "Dig into your creative library...",
+];
