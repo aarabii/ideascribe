@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import { FileIcon } from "lucide-react";
 
 interface CanvasListProps {
-  parentCanvasId: Id<"canvas">;
+  parentCanvasId?: Id<"canvas">;
   level?: number;
   data?: Doc<"canvas">;
 }

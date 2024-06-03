@@ -39,3 +39,24 @@ export const toastMsgDeleteError = [
   "Failed to delete Canvas. Give it another shot.",
   "Error: Unable to delete Canvas. Please check and retry.",
 ];
+
+export const toastMsgRestoreLoading = [
+  "Hang tight, we're restoring your Canvas...",
+  "Restoring your Canvas... almost there!",
+  "Bringing your creative space back... please wait!",
+];
+
+export const toastMsgRestoreSuccess = [
+  "Canvas Restored!",
+  "Your Canvas has been restored!",
+  "Canvas successfully restored!",
+  "Success! Your Canvas is back.",
+  "Canvas restored! Continue your creativity.",
+];
+
+export const toastMsgRestoreError = [
+  "Failed to restore Canvas. Please check your connection.",
+  "Oops! Something went wrong. Please try again.",
+  "Failed to restore Canvas. Give it another shot.",
+  "Error: Unable to restore Canvas. Please check and retry.",
+];

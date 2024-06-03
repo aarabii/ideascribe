@@ -8,22 +8,29 @@ import { cn } from "@/lib/utils";
 import {
   ChevronLeftIcon,
   MenuIcon,
+  Plus,
   PlusCircle,
   Search,
   Settings,
+  Trash,
 } from "lucide-react";
 import { UserItem } from "./UserItem";
 import { Item } from "./Item";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
-
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/popover";
 import {
   toastMsgLoading,
   toastMsgSuccess,
   toastMsgError,
 } from "@/assets/toastMsg";
 import { CanvasList } from "./CanvasList";
+import { TrashBox } from "./TrashBox";
 
 export const Navigation = () => {
   const pathname = usePathname();
@@ -159,6 +166,22 @@ export const Navigation = () => {
         </div>
         <div className="mt-4">
           <CanvasList />
+          <Item
+            onClick={handleCreate}
+            icon={Plus}
+            label="Create new canvas..."
+          />
+          <Popover>
+            <PopoverTrigger className="w-full mt-4">
+              <Item label="Trash" icon={Trash} />
+            </PopoverTrigger>
+            <PopoverContent
+              className="p-0 w-72"
+              side={isMobile ? "bottom" : "right"}
+            >
+              <TrashBox />
+            </PopoverContent>
+          </Popover>
         </div>
 
         <div
