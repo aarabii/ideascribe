@@ -34,6 +34,7 @@ import {
 } from "@/assets/toastMsg";
 
 import { useSearch } from "@/hook/useSearch";
+import { useSettings } from "@/hook/useSettings";
 
 import { UserItem } from "./UserItem";
 import { Item } from "./Item";
@@ -42,6 +43,8 @@ import { TrashBox } from "./TrashBox";
 
 export const Navigation = () => {
   const search = useSearch();
+  const settings = useSettings();
+
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -50,6 +53,7 @@ export const Navigation = () => {
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<"aside">>(null);
   const navbarRef = useRef<ElementRef<"div">>(null);
+
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
 
@@ -170,7 +174,7 @@ export const Navigation = () => {
         <div>
           <UserItem />
           <Item label="Search" icon={Search} isSearch onClick={search.onOpen} />
-          <Item label="Setting" icon={Settings} onClick={() => {}} />
+          <Item label="Setting" icon={Settings} onClick={settings.onOpen} />
           <Item onClick={handleCreate} label="New canvas" icon={PlusCircle} />
         </div>
         <div className="mt-4">

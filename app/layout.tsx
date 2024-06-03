@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ConvexClientProvider } from "@/components/providers/convex-provider";
+import { ModalProvider } from "@/components/providers/modal-provider";
 
 import { SearchCommand } from "@/components/searchCommand";
 
@@ -50,6 +51,7 @@ export default function RootLayout({
             storageKey="ID-Theme"
           >
             <Toaster position="bottom-right" />
+            <ModalProvider />
             <SearchCommand />
             {children}
           </ThemeProvider>
