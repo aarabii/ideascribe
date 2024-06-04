@@ -18,7 +18,7 @@ import {
   PlusCircle,
   Search,
   Settings,
-  Trash,
+  Trash2,
 } from "lucide-react";
 
 import {
@@ -186,7 +186,7 @@ export const Navigation = () => {
           />
           <Popover>
             <PopoverTrigger className="w-full mt-4">
-              <Item label="Trash" icon={Trash} />
+              <Item label="Trash" icon={Trash2} />
             </PopoverTrigger>
             <PopoverContent
               className="p-0 w-72"

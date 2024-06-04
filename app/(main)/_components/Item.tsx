@@ -19,7 +19,7 @@ import {
   LucideIcon,
   MoreHorizontal,
   Plus,
-  Trash,
+  Trash2,
 } from "lucide-react";
 
 import {
@@ -180,7 +180,7 @@ const Item: ItemComponent = ({
               forceMount
             >
               <DropdownMenuItem onClick={onArchive}>
-                <Trash className="h-4 w-4 mr-2 text-primary/10" />
+                <Trash2 className="h-4 w-4 mr-2 text-red-500" />
                 Delete
               </DropdownMenuItem>
               <DropdownMenuSeparator />
