@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, ElementRef, useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 
 import { useMediaQuery } from "usehooks-ts";
 import { toast } from "sonner";
@@ -40,12 +40,14 @@ import { UserItem } from "./UserItem";
 import { Item } from "./Item";
 import { CanvasList } from "./CanvasList";
 import { TrashBox } from "./TrashBox";
+import { Navbar } from "./Navbar";
 
 export const Navigation = () => {
   const search = useSearch();
   const settings = useSettings();
 
   const pathname = usePathname();
+  const params = useParams();
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   const create = useMutation(api.canvas.create);
@@ -211,15 +213,19 @@ export const Navigation = () => {
           isMobile && "w-full left-0"
         )}
       >
-        <nav className="bg-transparent px-3 py-2 w-full">
-          {isCollapsed && (
-            <MenuIcon
-              onClick={resetWidth}
-              role="button"
-              className="w-6 h-6 text-muted-foreground"
-            />
-          )}
-        </nav>
+        {!!params.canvasID ? (
+          <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
+        ) : (
+          <nav className="bg-transparent px-3 py-2 w-full">
+            {isCollapsed && (
+              <MenuIcon
+                onClick={resetWidth}
+                role="button"
+                className="w-6 h-6 text-muted-foreground"
+              />
+            )}
+          </nav>
+        )}
       </div>
     </Fragment>
   );

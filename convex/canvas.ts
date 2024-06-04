@@ -169,3 +169,54 @@ export const getSearch = query({
     return canvas;
   },
 });
+
+export const getById = query({
+  args: { id: v.id("canvas") },
+  handler: async (context, args) => {
+    const identity = await context.auth.getUserIdentity();
+
+    const canvas = await context.db.get(args.id);
+
+    if (!canvas) throw new Error("Canvas not found");
+
+    if (canvas.isPublished && !canvas.isArchived) return canvas;
+
+    if (!identity) throw new Error("Unauthorized");
+
+    const userID = identity.subject;
+
+    if (canvas.userId !== userID) throw new Error("Unauthorized");
+
+    return canvas;
+  },
+});
+
+export const update = mutation({
+  args: {
+    id: v.id("canvas"),
+    title: v.optional(v.string()),
+    content: v.optional(v.string()),
+    isPublished: v.optional(v.boolean()),
+    coverImage: v.optional(v.string()),
+    icon: v.optional(v.string()),
+  },
+  handler: async (context, args) => {
+    const identity = await context.auth.getUserIdentity();
+
+    if (!identity) throw new Error("Unauthorized");
+
+    const userID = identity.subject;
+
+    const { id, ...rest } = args;
+
+    const existingCanvas = await context.db.get(args.id);
+
+    if (!existingCanvas) throw new Error("Canvas not found");
+
+    if (existingCanvas.userId !== userID) throw new Error("Unauthorized");
+
+    const canvas = await context.db.patch(args.id, { ...rest });
+
+    return canvas;
+  },
+});
