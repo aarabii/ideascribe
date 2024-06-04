@@ -17,7 +17,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 
-import { File } from "lucide-react";
+import { FileSearch } from "lucide-react";
 
 import { searchMsg } from "@/assets/textMsg";
 
@@ -72,7 +72,7 @@ export function SearchCommand() {
               {c.icon ? (
                 <p className="mr-2 text-[18px]">{c.icon}</p>
               ) : (
-                <File className="w-4 h-4 mr-2" />
+                <FileSearch className="w-4 h-4 mr-2" />
               )}
               <span>{c.title || "Untitled"}</span>
             </CommandItem>

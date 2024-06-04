@@ -7,7 +7,7 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Doc, Id } from "@/convex/_generated/dataModel";
 
-import { FileIcon } from "lucide-react";
+import { FileText } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -71,7 +71,7 @@ export const CanvasList = ({ parentCanvasId, level = 0 }: CanvasListProps) => {
             id={c._id}
             onClick={() => onRedirect(c._id)}
             label={c.title || "Untitled"}
-            icon={FileIcon}
+            icon={FileText}
             canvasIcon={c.icon}
             active={params.canvasId === c._id}
             level={level}

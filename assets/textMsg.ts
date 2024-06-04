@@ -37,3 +37,15 @@ export const searchMsg = [
   "Search your organized chaos...",
   "Dig into your creative library...",
 ];
+
+export const avtMessage = [
+  "'s Canvas",
+  "'s Creative Space",
+  "'s Workspace",
+  "'s Projects",
+  "'s Dashboard",
+  "'s Ideas",
+  "'s Hub",
+  "'s Studio",
+  "'s Workbench",
+];

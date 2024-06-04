@@ -107,7 +107,6 @@ export const Navigation = () => {
   };
 
   const resetWidth = () => {
-    console.log("resetWidth");
     if (sidebarRef.current && navbarRef.current) {
       setIsCollapsed(false);
       setIsResetting(true);
@@ -125,7 +124,6 @@ export const Navigation = () => {
   };
 
   const collapse = () => {
-    console.log("collapse");
     if (sidebarRef.current && navbarRef.current) {
       setIsCollapsed(true);
       setIsResetting(true);
@@ -186,6 +184,7 @@ export const Navigation = () => {
             icon={Plus}
             label="Create new canvas..."
           />
+
           <Popover>
             <PopoverTrigger className="w-full mt-4">
               <Item label="Trash" icon={Trash2} />

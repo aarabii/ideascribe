@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useUser, SignOutButton } from "@clerk/nextjs";
 
 import { ChevronsLeftRight } from "lucide-react";
@@ -15,20 +16,21 @@ import {
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
+import { avtMessage } from "@/assets/textMsg";
+
 export const UserItem = () => {
   const user = useUser();
 
-  const avtMessage = [
-    "'s Canvas",
-    "'s Creative Space",
-    "'s Workspace",
-    "'s Projects",
-    "'s Dashboard",
-    "'s Ideas",
-    "'s Hub",
-    "'s Studio",
-    "'s Workbench",
-  ];
+  const [message, setMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    let storedMessage = sessionStorage.getItem("avtMessage");
+    if (!storedMessage) {
+      storedMessage = avtMessage[Math.floor(Math.random() * avtMessage.length)];
+      sessionStorage.setItem("avtMessage", storedMessage);
+    }
+    setMessage(storedMessage);
+  }, []);
 
   return (
     <DropdownMenu>
@@ -45,8 +47,7 @@ export const UserItem = () => {
               />
             </Avatar>
             <span className="text-start font-medium line-clamp-1">
-              {user.user?.firstName}{" "}
-              {avtMessage[Math.floor(Math.random() * avtMessage.length)]}
+              <strong>{user.user?.firstName}</strong> {message}
             </span>
           </div>
           <ChevronsLeftRight className="w-5 h-5 ml-2 text-muted-foreground rotate-90" />
