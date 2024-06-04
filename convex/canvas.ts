@@ -150,18 +150,22 @@ export const remove = mutation({
 });
 
 export const getSearch = query({
-  handler: async (ctx) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new Error("Unauthorized");
+  handler: async (context) => {
+    const identity = await context.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
 
     const userId = identity.subject;
-    const canvases = await ctx.db
+
+    const canvas = await context.db
       .query("canvas")
       .withIndex("by_user", (q) => q.eq("userId", userId))
       .filter((q) => q.eq(q.field("isArchived"), false))
       .order("desc")
       .collect();
 
-    return canvases;
+    return canvas;
   },
 });
