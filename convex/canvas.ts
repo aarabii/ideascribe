@@ -239,3 +239,24 @@ export const removeIcon = mutation({
     return canvas;
   },
 });
+
+export const removeCoverImage = mutation({
+  args: { id: v.id("canvas") },
+  handler: async (context, args) => {
+    const identity = await context.auth.getUserIdentity();
+
+    if (!identity) throw new Error("Unauthorized");
+
+    const userID = identity.subject;
+
+    const existingCanvas = await context.db.get(args.id);
+
+    if (!existingCanvas) throw new Error("Canvas not found");
+
+    if (existingCanvas.userId !== userID) throw new Error("Unauthorized");
+
+    const canvas = await context.db.patch(args.id, { coverImage: undefined });
+
+    return canvas;
+  },
+});

@@ -11,6 +11,8 @@ import { Button } from "./ui/button";
 
 import { IconPicker } from "./IconPicker";
 
+import { useCoverImage } from "@/hook/useCoverImage";
+
 interface ToolbarProps {
   initialData: Doc<"canvas">;
   preview?: boolean;
@@ -24,6 +26,8 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
 
   const update = useMutation(api.canvas.update);
   const removeIcon = useMutation(api.canvas.removeIcon);
+
+  const coverImage = useCoverImage();
 
   const enableInput = () => {
     if (preview) return;
@@ -103,7 +107,7 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
         )}
         {!initialData.coverImage && !preview && (
           <Button
-            onClick={() => {}}
+            onClick={coverImage.onOpen}
             className="text-xs text-muted-foreground"
             variant="outline"
             size="sm"
