@@ -10,6 +10,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import { MenuIcon } from "lucide-react";
 
 import { Title } from "./Title";
+import { Banner } from "./Banner";
 
 interface NavbarProps {
   isCollapsed: boolean;
@@ -49,6 +50,7 @@ export const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
           <Title initialData={canvas} />
         </div>
       </nav>
+      {canvas.isArchived && <Banner canvasId={canvas._id} />}
     </Fragment>
   );
 };
