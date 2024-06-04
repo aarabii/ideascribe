@@ -153,9 +153,7 @@ export const getSearch = query({
   handler: async (context) => {
     const identity = await context.auth.getUserIdentity();
 
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
+    if (!identity) throw new Error("Not authenticated");
 
     const userId = identity.subject;
 
@@ -216,6 +214,27 @@ export const update = mutation({
     if (existingCanvas.userId !== userID) throw new Error("Unauthorized");
 
     const canvas = await context.db.patch(args.id, { ...rest });
+
+    return canvas;
+  },
+});
+
+export const removeIcon = mutation({
+  args: { id: v.id("canvas") },
+  handler: async (context, args) => {
+    const identity = await context.auth.getUserIdentity();
+
+    if (!identity) throw new Error("Unauthorized");
+
+    const userID = identity.subject;
+
+    const existingCanvas = await context.db.get(args.id);
+
+    if (!existingCanvas) throw new Error("Canvas not found");
+
+    if (existingCanvas.userId !== userID) throw new Error("Unauthorized");
+
+    const canvas = await context.db.patch(args.id, { icon: undefined });
 
     return canvas;
   },
