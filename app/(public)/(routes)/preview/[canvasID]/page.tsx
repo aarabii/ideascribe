@@ -52,10 +52,10 @@ export default function CanvasPage({ params }: CanvasPageProps) {
 
   return (
     <div className="pb-40">
-      <Cover url={canvas.coverImage} />
+      <Cover preview url={canvas.coverImage} />
       <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
-        <Toolbar initialData={canvas} />
-        <Editor initialData={canvas} />
+        <Toolbar preview initialData={canvas} />
+        <Editor editable={false} initialData={canvas} />
       </div>
     </div>
   );

@@ -60,3 +60,45 @@ export const toastMsgRestoreError = [
   "Failed to restore Canvas. Give it another shot.",
   "Error: Unable to restore Canvas. Please check and retry.",
 ];
+
+export const toastMsgShareLoading = [
+  "Hang tight, we're sharing your Canvas...",
+  "Sharing your Canvas... almost there!",
+  "Preparing to share your creative space... please wait!",
+];
+
+export const toastMsgShareSuccess = [
+  "Canvas Shared!",
+  "Your Canvas has been shared!",
+  "Canvas shared successfully!",
+  "Success! Your Canvas is now shared.",
+  "Canvas shared! Others can now view it.",
+];
+
+export const toastMsgShareError = [
+  "Failed to share Canvas. Please check your connection.",
+  "Oops! Something went wrong. Please try again.",
+  "Failed to share Canvas. Give it another shot.",
+  "Error: Unable to share Canvas. Please check and retry.",
+];
+
+export const toastMsgUnshareLoading = [
+  "Hang tight, we're unsharing your Canvas...",
+  "Unsharing your Canvas... almost there!",
+  "Preparing to unshare your creative space... please wait!",
+];
+
+export const toastMsgUnshareSuccess = [
+  "Canvas Unshared!",
+  "Your Canvas has been unshared!",
+  "Canvas unshared successfully!",
+  "Success! Your Canvas is now unshared.",
+  "Canvas unshared! It's no longer visible to others.",
+];
+
+export const toastMsgUnshareError = [
+  "Failed to unshare Canvas. Please check your connection.",
+  "Oops! Something went wrong. Please try again.",
+  "Failed to unshare Canvas. Give it another shot.",
+  "Error: Unable to unshare Canvas. Please check and retry.",
+];
