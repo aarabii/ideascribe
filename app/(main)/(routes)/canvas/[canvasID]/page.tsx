@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "convex/react";
+import { useQuery, useMutation } from "convex/react";
 
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
@@ -8,6 +8,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import { Toolbar } from "@/components/Toolbar";
 import { Cover } from "@/components/Cover";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Editor } from "@/components/Editor";
 
 interface CanvasPageProps {
   params: {
@@ -19,6 +20,15 @@ export default function CanvasPage({ params }: CanvasPageProps) {
   const canvas = useQuery(api.canvas.getById, {
     id: params.canvasID,
   });
+
+  const update = useMutation(api.canvas.update);
+
+  const onChange = (value: string) => {
+    update({
+      id: params.canvasID,
+      content: value,
+    });
+  };
 
   if (canvas === undefined) {
     return (
@@ -43,6 +53,7 @@ export default function CanvasPage({ params }: CanvasPageProps) {
       <Cover url={canvas.coverImage} />
       <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
         <Toolbar initialData={canvas} />
+        <Editor initialData={canvas} />
       </div>
     </div>
   );
