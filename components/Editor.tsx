@@ -3,9 +3,10 @@
 import "@blocknote/core/fonts/inter.css";
 import "@blocknote/mantine/style.css";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { useTheme } from "next-themes";
 import { useMutation, useQuery } from "convex/react";
+import debounce from "lodash/debounce";
 
 import { Block, BlockNoteEditor, PartialBlock } from "@blocknote/core";
 import { BlockNoteView } from "@blocknote/mantine";
@@ -27,30 +28,40 @@ const Editor = ({ initialData, editable }: EditorProps) => {
     PartialBlock[] | undefined | "loading"
   >("loading");
 
+  const loadInitialContent = useCallback(() => {
+    const data = getById?.content;
+    return data ? (JSON.parse(data) as PartialBlock[]) : undefined;
+  }, [getById]);
+
   useEffect(() => {
     if (getById) {
       setInitialContent(loadInitialContent());
     } else {
       setInitialContent(undefined);
     }
-    // eslint-disable-next-line
-  }, []);
+  }, [getById, loadInitialContent]);
 
-  const loadInitialContent = () => {
-    const data = getById?.content;
-    return data ? (JSON.parse(data) as PartialBlock[]) : undefined;
-  };
+  const saveToStorage = useCallback(
+    async (jsonBlocks: Block[]) => {
+      if (initialData && initialData._id) {
+        await update({
+          id: initialData._id,
+          content: JSON.stringify(jsonBlocks),
+        });
+      } else {
+        console.error("initialData or initialData._id is missing");
+      }
+    },
+    [initialData, update]
+  );
 
-  const saveToStorage = async (jsonBlocks: Block[]) => {
-    if (initialData && initialData._id) {
-      await update({
-        id: initialData._id,
-        content: JSON.stringify(jsonBlocks),
-      });
-    } else {
-      console.error("initialData or initialData._id is missing");
-    }
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedSaveToStorage = useCallback(
+    debounce((jsonBlocks: Block[]) => {
+      saveToStorage(jsonBlocks);
+    }, 2000),
+    [saveToStorage]
+  );
 
   const editor = useMemo(() => {
     if (initialContent === "loading") {
@@ -65,6 +76,22 @@ const Editor = ({ initialData, editable }: EditorProps) => {
     }
   }, [initialContent]);
 
+  useEffect(() => {
+    if (editor) {
+      const handleMouseActivity = () => {
+        debouncedSaveToStorage(editor.document);
+      };
+
+      document.addEventListener("mousemove", handleMouseActivity);
+      document.addEventListener("mouseout", handleMouseActivity);
+
+      return () => {
+        document.removeEventListener("mousemove", handleMouseActivity);
+        document.removeEventListener("mouseout", handleMouseActivity);
+      };
+    }
+  }, [editor, debouncedSaveToStorage]);
+
   if (editor === undefined) {
     return "Loading content...";
   }
@@ -74,7 +101,7 @@ const Editor = ({ initialData, editable }: EditorProps) => {
       editable={editable}
       editor={editor}
       onChange={() => {
-        saveToStorage(editor.document);
+        debouncedSaveToStorage(editor.document);
       }}
       theme={resolvedTheme === "dark" ? "dark" : "light"}
     />
