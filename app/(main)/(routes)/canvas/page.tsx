@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -18,12 +19,15 @@ import {
 import { welcomeMessageArr, BtnTextArr } from "@/assets/textMsg";
 
 export default function Canvas() {
+  const router = useRouter();
   const user = useUser();
   const create = useMutation(api.canvas.create);
 
   const onCreate = () => {
     const promise = create({
       title: "Untitled Canvas",
+    }).then((id) => {
+      router.push(`/canvas/${id}`);
     });
 
     toast.promise(promise, {

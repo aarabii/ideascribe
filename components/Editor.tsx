@@ -18,7 +18,7 @@ interface EditorProps {
   editable?: boolean;
 }
 
-export const Editor = ({ initialData, editable }: EditorProps) => {
+const Editor = ({ initialData, editable }: EditorProps) => {
   const { resolvedTheme } = useTheme();
   const update = useMutation(api.canvas.update);
   const getById = useQuery(api.canvas.getById, { id: initialData._id });
@@ -80,3 +80,5 @@ export const Editor = ({ initialData, editable }: EditorProps) => {
     />
   );
 };
+
+export default Editor;

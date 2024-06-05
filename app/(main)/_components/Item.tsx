@@ -77,7 +77,7 @@ const Item: ItemComponent = ({
     e.stopPropagation();
     if (!id) return;
 
-    const promise = archive({ id });
+    const promise = archive({ id }).then((id) => router.push(`/canvas/${id}`));
 
     toast.promise(promise, {
       loading:

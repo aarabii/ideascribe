@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, ElementRef, useEffect, useRef, useState } from "react";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 
 import { useMediaQuery } from "usehooks-ts";
 import { toast } from "sonner";
@@ -46,6 +46,7 @@ export const Navigation = () => {
   const search = useSearch();
   const settings = useSettings();
 
+  const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -140,6 +141,8 @@ export const Navigation = () => {
   const handleCreate = () => {
     const promise = create({
       title: "Untitled Canvas",
+    }).then((id) => {
+      router.push(`/canvas/${id}`);
     });
 
     toast.promise(promise, {

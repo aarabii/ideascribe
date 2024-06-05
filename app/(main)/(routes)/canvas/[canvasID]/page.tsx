@@ -1,6 +1,8 @@
 "use client";
 
 import { useQuery, useMutation } from "convex/react";
+import dynamic from "next/dynamic";
+import { useMemo } from "react";
 
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
@@ -8,7 +10,6 @@ import { Id } from "@/convex/_generated/dataModel";
 import { Toolbar } from "@/components/Toolbar";
 import { Cover } from "@/components/Cover";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Editor } from "@/components/Editor";
 
 interface CanvasPageProps {
   params: {
@@ -17,6 +18,8 @@ interface CanvasPageProps {
 }
 
 export default function CanvasPage({ params }: CanvasPageProps) {
+  const Editor = dynamic(() => import("@/components/Editor"), { ssr: false });
+
   const canvas = useQuery(api.canvas.getById, {
     id: params.canvasID,
   });
